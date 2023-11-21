@@ -1,0 +1,23 @@
+{
+  "name": "docker-base",
+  "repository": "https://github.com/outoforbitdev/docker-base.git",
+  "author": "Jay Mirecki <outoforbitdev@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.2",
+    "@commitlint/config-conventional": "^18.4.2",
+    "commitlint": "^18.4.2",
+    "husky": "^8.0.3",
+    "markdownlint-cli2": "^0.11.0",
+    "prettier": "3.1.0"
+  },
+  "markdownlint-cli2": {
+    "ignores": [
+      "node_modules",
+      "CHANGELOG.md"
+    ],
+    "config": {
+      "no-inline-html": false
+    }
+  }
+}

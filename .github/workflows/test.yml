@@ -1,0 +1,19 @@
+name: Test App
+permissions: read-all
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test Docker Image
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Test Docker Image
+        uses: outoforbitdev/action-docker-test@v1.0.0-staging.1
+        with:
+          test-command: sh ./tests.sh
