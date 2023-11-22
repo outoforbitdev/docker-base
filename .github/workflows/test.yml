@@ -13,28 +13,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # - name: Test Node 20 Image
-      #   uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
-      #   with:
-      #     test-command: sh ./.tests/node_twenty.sh
-      #     build-command: docker build --build-arg NODE_MAJOR_VERSION="20"
-      # - name: Test Node 18 Image
-      #   uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
-      #   with:
-      #     test-command: sh ./.tests/node_eighteen.sh
-      #     build-command: docker build --build-arg NODE_MAJOR_VERSION="18"
-      # - name: Test ASPNET 6 Image
-      #   uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
-      #   with:
-      #     test-command: sh ./.tests/aspnet_six.sh
-      #     build-command: >-
-      #       docker build 
-      #       --build-arg BASE_IMAGE="mcr.microsoft.com/dotnet/aspnet" 
-      #       --build-arg BASE_TAG=6.0
-      - name: Test .NET SDK 6 Image
+      - name: Test Node 20 Image
+        uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
+        with:
+          test-command: sh ./.tests/node_twenty.sh
+          build-command: docker build --build-arg NODE_MAJOR_VERSION="20"
+      - name: Test Node 18 Image
+        uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
+        with:
+          test-command: sh ./.tests/node_eighteen.sh
+          build-command: docker build --build-arg NODE_MAJOR_VERSION="18"
+      - name: Test ASPNET 6 Image
         uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
         with:
           test-command: sh ./.tests/aspnet_six.sh
+          build-command: >-
+            docker build 
+            --build-arg BASE_IMAGE="mcr.microsoft.com/dotnet/aspnet" 
+            --build-arg BASE_TAG=6.0
+      - name: Test .NET SDK 6 Image
+        uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
+        with:
+          test-command: sh ./.tests/dotnet_sdk_six.sh
           build-command: >-
             docker build 
             --build-arg BASE_IMAGE="mcr.microsoft.com/dotnet/sdk" 
