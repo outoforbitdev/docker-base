@@ -7,14 +7,27 @@ on:
       - reopened
       - synchronize
 jobs:
-  test:
+  test-node:
     runs-on: ubuntu-latest
-    name: Test Docker Image
+    name: Test Images
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Test Docker Image
+      - name: Test Node 20 Image
         uses: outoforbitdev/action-docker-test@v0.0.2-staging.1
         with:
-          test-command: sh ./tests.sh
+          test-command: sh ./.tests/node_twenty.sh
           build-command: docker build --build-arg NODE_MAJOR_VERSION="20"
+      - name: Test Node 18 Image
+        uses: outoforbitdev/action-docker-test@v0.0.2-staging.1
+        with:
+          test-command: sh ./.tests/node_eighteen.sh
+          build-command: docker build --build-arg NODE_MAJOR_VERSION="18"
+      - name: Test ASPNET Image
+        uses: outoforbitdev/action-docker-test@v0.0.2-staging.1
+        with:
+          test-command: sh ./.tests/aspnet_six.sh
+          build-command: >-
+            docker build 
+            --build-arg BASE_IMAGE="mcr.microsoft.com/dotnet/aspnet" 
+            --build-arg BASE_TAG=6.0
