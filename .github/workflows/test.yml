@@ -14,6 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Test Docker Image
-        uses: outoforbitdev/action-docker-test@v1.0.0-staging.1
+        uses: outoforbitdev/action-docker-test@v0.0.2-staging.1
         with:
           test-command: sh ./tests.sh
+          build-command: docker build --build-arg NODE_MAJOR_VERSION="20"
