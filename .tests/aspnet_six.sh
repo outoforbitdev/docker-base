@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-cat /etc/*-release
-dotnet --info
+cat /etc/*-release | head -n 4 | grep "Debian GNU/Linux 11 (bullseye)"
+dotnet --info | head -n 5 | grep "6.0.25"
