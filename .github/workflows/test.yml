@@ -7,9 +7,9 @@ on:
       - reopened
       - synchronize
 jobs:
-  test:
+  test-node:
     runs-on: ubuntu-latest
-    name: Test Images
+    name: Test Node Images
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,11 +25,23 @@ jobs:
           test-command: sh ./NODE/node_eighteen.sh
           dockerfile-path: ./NODE/
           build-command: docker build --build-arg NODE_MAJOR_VERSION="18"
+  test-aspnet:
+    runs-on: ubuntu-latest
+    name: Test ASPNET Images
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Test ASPNET 6 Image
         uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
         with:
           test-command: sh ./ASPNET_6/aspnet_six.sh
           dockerfile-path: ./ASPNET_6/
+  test-dotnet-sdk:
+    runs-on: ubuntu-latest
+    name: Test .NET SDK Images
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Test .NET SDK 6 Image
         uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
         with:
@@ -37,55 +49,84 @@ jobs:
           dockerfile-path: ./DOTNET_SDK_6/
   release:
     runs-on: ubuntu-latest
+    name: Publish Github Release
+    needs:
+      - test-node
+      - test-aspnet
+      - test-dotnet-sdk
+    outputs:
+      version-released: ${{ steps.semantic-release.outputs.version-released }}
+      next-version: ${{ steps.semantic-release.outputs.next-version }}
+    steps:
+      - name: Set Example Release
+        id: semantic-release
+        run: echo "next-version=test-tag" >> "$GITHUB_OUTPUT"; echo "version-released=true" >> "$GITHUB_OUTPUT"
+  release-node:
+    runs-on: ubuntu-latest
     name: Release Images
-    needs: test
-    env:
-      DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
-      DOCKER_TOKEN: ${{ vars.DOCKER_TOKEN }}
-      NODE_IMAGE_NAME: ${{ vars.NODE_IMAGE_NAME }}
-      ASPNET_IMAGE_NAME: ${{ vars.ASPNET_IMAGE_NAME }}
-      DOTNET_SDK_IMAGE_NAME: ${{ vars.DOTNET_SDK_IMAGE_NAME }}
+    needs:
+      - release
+      - test-node
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Set Example Release
-        id: semantic-release
-        run: echo "next-version=test-tag" >> "$GITHUB_OUTPUT"; echo "version-released=true" >> "$GITHUB_OUTPUT"
       - name: Publish Node 20 Image
-        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.1
-        if: ${{ steps.semantic-release.outputs.version-released }}
+        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.2
+        if: ${{ needs.release.outputs.version-released }}
         with:
-          docker-username: ${{ env.DOCKER_USERNAME }}
-          docker-token: ${{ env.DOCKER_TOKEN }}
-          image-name: ${{ env.NODE_IMAGE_NAME }}
+          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-token: ${{ secrets.DOCKER_TOKEN }}
+          image-name: ${{ vars.NODE_IMAGE_NAME }}
           dockerfile-path: ./NODE/
-          image-tag: "node20-${{ steps.semantic-release.outputs.next-version }}"
+          image-tag: "node20-${{ needs.release.outputs.next-version }}"
       - name: Publish Node 18 Image
-        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.1
-        if: ${{ steps.semantic-release.outputs.version-released }}
+        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.2
+        if: ${{ needs.release.outputs.version-released }}
         with:
-          docker-username: ${{ env.DOCKER_USERNAME }}
-          docker-token: ${{ env.DOCKER_TOKEN }}
-          image-name: ${{ env.NODE_IMAGE_NAME }}
+          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-token: ${{ secrets.DOCKER_TOKEN }}
+          image-name: ${{ vars.NODE_IMAGE_NAME }}
           dockerfile-path: ./NODE/
-          image-tag: "node18-${{ steps.semantic-release.outputs.next-version }}"
+          image-tag: "node18-${{ needs.release.outputs.next-version }}"
+  release-aspnet:
+    runs-on: ubuntu-latest
+    name: Release Images
+    needs:
+      - release
+      - test-aspnet
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Publish ASPNET 6 Image
-        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.1
-        if: ${{ steps.semantic-release.outputs.version-released }}
+        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.2
+        if: ${{ needs.release.outputs.version-released }}
         with:
-          docker-username: ${{ env.DOCKER_USERNAME }}
-          docker-token: ${{ env.DOCKER_TOKEN }}
-          image-name: ${{ env.ASPNET_IMAGE_NAME }}
+          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-token: ${{ secrets.DOCKER_TOKEN }}
+          image-name: ${{ vars.ASPNET_IMAGE_NAME }}
           dockerfile-path: ./ASPNET_6/
-          image-tag: "aspnet6-${{ steps.semantic-release.outputs.next-version }}"
-      - name: Publish .NET SDK 6 Image
-        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.1
-        if: ${{ steps.semantic-release.outputs.version-released }}
+          image-tag: "aspnet6-${{ needs.release.outputs.next-version }}"
+  release-dotnet-sdk:
+    runs-on: ubuntu-latest
+    name: Release Images
+    needs:
+      - release
+      - test-dotnet-sdk
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          docker-username: ${{ env.DOCKER_USERNAME }}
-          docker-token: ${{ env.DOCKER_TOKEN }}
-          image-name: ${{ env.DOTNET_SDK_IMAGE_NAME }}
-          image-tag: "sdk6-${{ steps.semantic-release.outputs.next-version }}"
+          persist-credentials: false
+      - name: Publish .NET SDK 6 Image
+        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.2
+        if: ${{ needs.release.outputs.version-released }}
+        with:
+          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-token: ${{ secrets.DOCKER_TOKEN }}
+          image-name: ${{ vars.DOTNET_SDK_IMAGE_NAME }}
+          image-tag: "sdk6-${{ needs.release.outputs.next-version }}"
           dockerfile-path: ./DOTNET_SDK_6/
