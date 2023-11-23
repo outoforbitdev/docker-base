@@ -34,7 +34,7 @@ jobs:
         uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
         with:
           test-command: sh ./DOTNET_SDK_6/dotnet_sdk_six.sh
-          dockerfile-path: ./DOTNET_SDK_6/" >> "$GITHUB_OUTPUT"; echo "version-released=true" >> "$GITHUB_OUTPUT"
+          dockerfile-path: ./DOTNET_SDK_6/
   release:
     runs-on: ubuntu-latest
     name: Release Images
@@ -52,7 +52,7 @@ jobs:
           persist-credentials: false
       - name: Set Example Release
         id: semantic-release
-        run: echo "next-version=test-tag
+        run: echo "next-version=test-tag" >> "$GITHUB_OUTPUT"; echo "version-released=true" >> "$GITHUB_OUTPUT"
       - name: Publish Node 20 Image
         uses: outoforbitdev/action-docker-publish@v2.1.0-staging.1
         if: ${{ steps.semantic-release.outputs.version-released }}
