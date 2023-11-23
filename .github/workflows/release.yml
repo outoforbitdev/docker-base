@@ -67,7 +67,7 @@ jobs:
           echo "* Next version - $NEXT_VERSION" >> $GITHUB_STEP_SUMMARY;
           echo "* Version released - $VERSION_RELEASED" >> $GITHUB_STEP_SUMMARY
       - name: Publish Node 20 Image
-        uses: outoforbitdev/action-docker-publish@v1.2.0-staging.8
+        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.1
         if: ${{ steps.semantic-release.outputs.version-released }}
         with:
           docker-username: ${{ vars.DOCKER_USERNAME }}
@@ -75,7 +75,7 @@ jobs:
           image-name: ${{ vars.NODE_IMAGE_NAME }}
           image-tag: "node20-${{ steps.semantic-release.outputs.next-version }}"
       - name: Publish Node 18 Image
-        uses: outoforbitdev/action-docker-publish@v1.2.0-staging.8
+        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.1
         if: ${{ steps.semantic-release.outputs.version-released }}
         with:
           docker-username: ${{ vars.DOCKER_USERNAME }}
@@ -83,7 +83,7 @@ jobs:
           image-name: ${{ vars.NODE_IMAGE_NAME }}
           image-tag: "node18-${{ steps.semantic-release.outputs.next-version }}"
       - name: Publish ASPNET 6 Image
-        uses: outoforbitdev/action-docker-publish@v1.2.0-staging.8
+        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.1
         if: ${{ steps.semantic-release.outputs.version-released }}
         with:
           docker-username: ${{ vars.DOCKER_USERNAME }}
@@ -91,7 +91,7 @@ jobs:
           image-name: ${{ vars.ASPNET_IMAGE_NAME }}
           image-tag: "aspnet6-${{ steps.semantic-release.outputs.next-version }}"
       - name: Publish .NET SDK 6 Image
-        uses: outoforbitdev/action-docker-publish@v1.2.0-staging.8
+        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.1
         if: ${{ steps.semantic-release.outputs.version-released }}
         with:
           docker-username: ${{ vars.DOCKER_USERNAME }}

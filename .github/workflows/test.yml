@@ -16,26 +16,22 @@ jobs:
       - name: Test Node 20 Image
         uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
         with:
-          test-command: sh ./.tests/node_twenty.sh
+          test-command: sh ./NODE/node_twenty.sh
+          dockerfile-path: ./NODE/
           build-command: docker build --build-arg NODE_MAJOR_VERSION="20"
       - name: Test Node 18 Image
         uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
         with:
-          test-command: sh ./.tests/node_eighteen.sh
+          test-command: sh ./NODE/node_eighteen.sh
+          dockerfile-path: ./NODE/
           build-command: docker build --build-arg NODE_MAJOR_VERSION="18"
       - name: Test ASPNET 6 Image
         uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
         with:
-          test-command: sh ./.tests/aspnet_six.sh
-          build-command: >-
-            docker build 
-            --build-arg BASE_IMAGE="mcr.microsoft.com/dotnet/aspnet" 
-            --build-arg BASE_TAG=6.0
+          test-command: sh ./ASPNET_6/aspnet_six.sh
+          dockerfile-path: ./ASPNET_6/
       - name: Test .NET SDK 6 Image
         uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
         with:
-          test-command: sh ./.tests/dotnet_sdk_six.sh
-          build-command: >-
-            docker build 
-            --build-arg BASE_IMAGE="mcr.microsoft.com/dotnet/sdk" 
-            --build-arg BASE_TAG=6.0
+          test-command: sh ./DOTNET_SDK_6/dotnet_sdk_six.sh
+          dockerfile-path: ./DOTNET_SDK_6/
