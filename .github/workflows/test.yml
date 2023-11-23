@@ -37,7 +37,7 @@ jobs:
           dockerfile-path: ./DOTNET_SDK_6/
       - name: Set Example Release
         id: semantic-release
-        run: echo "next-version=test-tag" >> "$GITHUB_OUTPUT"
+        run: echo "next-version=test-tag" >> "$GITHUB_OUTPUT"; echo "version-released=true" >> "$GITHUB_OUTPUT"
       - name: Publish Node 20 Image
         uses: outoforbitdev/action-docker-publish@v2.1.0-staging.1
         if: ${{ steps.semantic-release.outputs.version-released }}
