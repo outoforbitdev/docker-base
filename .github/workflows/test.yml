@@ -109,7 +109,7 @@ jobs:
           docker-token: ${{ secrets.DOCKER_TOKEN }}
           image-name: ${{ vars.ASPNET_IMAGE_NAME }}
           dockerfile-path: ./ASPNET_6/
-          image-tag: "aspnet6-${{ needs.release.outputs.next-version }}"
+          image-tag: "dotnet6-${{ needs.release.outputs.next-version }}"
   publish-dotnet-sdk:
     runs-on: ubuntu-latest
     name: Publish .NET SDK Image
@@ -127,5 +127,5 @@ jobs:
           docker-username: ${{ secrets.DOCKER_USERNAME }}
           docker-token: ${{ secrets.DOCKER_TOKEN }}
           image-name: ${{ vars.DOTNET_SDK_IMAGE_NAME }}
-          image-tag: "sdk6-${{ needs.release.outputs.next-version }}"
+          image-tag: "dotnet6-${{ needs.release.outputs.next-version }}"
           dockerfile-path: ./DOTNET_SDK_6/
