@@ -83,7 +83,7 @@ jobs:
         uses: outoforbitdev/action-docker-publish@v2.2.0-staging.1
         if: ${{ needs.release.outputs.version-released }}
         with:
-          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-username: ${{ vars.DOCKER_USERNAME }}
           docker-token: ${{ secrets.DOCKER_TOKEN }}
           image-name: ${{ vars.NODE_IMAGE_NAME }}
           dockerfile-path: ./NODE/
@@ -94,7 +94,7 @@ jobs:
         uses: outoforbitdev/action-docker-publish@v2.2.0-staging.1
         if: ${{ needs.release.outputs.version-released }}
         with:
-          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-username: ${{ vars.DOCKER_USERNAME }}
           docker-token: ${{ secrets.DOCKER_TOKEN }}
           image-name: ${{ vars.NODE_IMAGE_NAME }}
           dockerfile-path: ./NODE/
@@ -115,7 +115,7 @@ jobs:
         uses: outoforbitdev/action-docker-publish@v2.2.0-staging.1
         if: ${{ needs.release.outputs.version-released }}
         with:
-          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-username: ${{ vars.DOCKER_USERNAME }}
           docker-token: ${{ secrets.DOCKER_TOKEN }}
           image-name: ${{ vars.ASPNET_IMAGE_NAME }}
           dockerfile-path: ./ASPNET_6/
@@ -134,7 +134,7 @@ jobs:
         uses: outoforbitdev/action-docker-publish@v2.2.0-staging.1
         if: ${{ needs.release.outputs.version-released }}
         with:
-          docker-username: ${{ secrets.DOCKER_USERNAME }}
+          docker-username: ${{ vars.DOCKER_USERNAME }}
           docker-token: ${{ secrets.DOCKER_TOKEN }}
           image-name: ${{ vars.DOTNET_SDK_IMAGE_NAME }}
           image-tag: "dotnet6-${{ needs.release.outputs.next-version }}"
