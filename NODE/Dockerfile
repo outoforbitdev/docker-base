@@ -5,7 +5,8 @@ FROM ubuntu:22.04
             ca-certificates \
             curl \
             gnupg \
-        && rm /var/lib/apt/lists/*
+        && apt-get -y clean \
+        && rm -rf /var/lib/apt/lists/*
 
     RUN mkdir -p /etc/apt/keyrings \
         && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
@@ -14,6 +15,7 @@ FROM ubuntu:22.04
     RUN apt-get update \
         && apt-get install --no-install-recommends -y \
             nodejs \
-        && rm /var/lib/apt/lists/*
+        && apt-get -y clean \
+        && rm -rf /var/lib/apt/lists/*
     
     RUN npm install -g npm@10.1.0
