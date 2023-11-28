@@ -80,7 +80,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Publish Node 20 Image
-        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.2
+        uses: outoforbitdev/action-docker-publish@v2.2.0-staging.1
         if: ${{ needs.release.outputs.version-released }}
         with:
           docker-username: ${{ secrets.DOCKER_USERNAME }}
@@ -88,9 +88,10 @@ jobs:
           image-name: ${{ vars.NODE_IMAGE_NAME }}
           dockerfile-path: ./NODE/
           image-tag: "node20-${{ needs.release.outputs.next-version }}"
-          build-command: docker build --build-arg NODE_MAJOR_VERSION="20"
+          build-args: |
+            NODE_MAJOR_VERSION="20"
       - name: Publish Node 18 Image
-        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.2
+        uses: outoforbitdev/action-docker-publish@v2.2.0-staging.1
         if: ${{ needs.release.outputs.version-released }}
         with:
           docker-username: ${{ secrets.DOCKER_USERNAME }}
@@ -98,7 +99,8 @@ jobs:
           image-name: ${{ vars.NODE_IMAGE_NAME }}
           dockerfile-path: ./NODE/
           image-tag: "node18-${{ needs.release.outputs.next-version }}"
-          build-command: docker build --build-arg NODE_MAJOR_VERSION="18"
+          build-args: |
+            NODE_MAJOR_VERSION="18"
   publish-aspnet:
     runs-on: ubuntu-latest
     name: Publish ASPNET Images
@@ -110,7 +112,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Publish ASPNET 6 Image
-        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.2
+        uses: outoforbitdev/action-docker-publish@v2.2.0-staging.1
         if: ${{ needs.release.outputs.version-released }}
         with:
           docker-username: ${{ secrets.DOCKER_USERNAME }}
@@ -129,7 +131,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Publish .NET SDK 6 Image
-        uses: outoforbitdev/action-docker-publish@v2.1.0-staging.2
+        uses: outoforbitdev/action-docker-publish@v2.2.0-staging.1
         if: ${{ needs.release.outputs.version-released }}
         with:
           docker-username: ${{ secrets.DOCKER_USERNAME }}
