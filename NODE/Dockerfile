@@ -5,6 +5,7 @@ FROM ubuntu:22.04
             ca-certificates \
             curl \
             gnupg \
+            libatomic1 \
         && apt-get -y clean \
         && rm -rf /var/lib/apt/lists/*
 
