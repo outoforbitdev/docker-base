@@ -6,7 +6,6 @@ FROM ubuntu:22.04
             curl \
             gnupg \
             libatomic1 \
-            yarn \
         && apt-get -y clean \
         && rm -rf /var/lib/apt/lists/*
 
@@ -20,4 +19,4 @@ FROM ubuntu:22.04
         && apt-get -y clean \
         && rm -rf /var/lib/apt/lists/*
     
-    RUN npm install -g npm@10.1.0
+    RUN npm install -g npm@10.2 yarn@1.22
