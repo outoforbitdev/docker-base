@@ -6,6 +6,7 @@ FROM ubuntu:22.04
             curl \
             gnupg \
             libatomic1 \
+            yarn \
         && apt-get -y clean \
         && rm -rf /var/lib/apt/lists/*
 
