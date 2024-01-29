@@ -1,7 +1,9 @@
 install:
     yarn install
     yarn husky install
-    brew install yamllint
+    yarn husky init
+    echo "yarn commitlint --edit \$1 --config ./.linters/config/commitlint.config.js" > .husky/commit-msg
+    echo "just lint" > .husky/pre-commit
 
 rebuild-staging:
     git fetch
@@ -13,11 +15,4 @@ rebuild-staging:
     git push origin staging
 
 lint:
-    # lint Dockerfile
-    docker run --rm -i hadolint/hadolint:fcbd01791c9251d83f2486e61ecaf41ee700a766-debian-arm64 < Dockerfile
-    # lint markdown
-    npx markdownlint-cli2 --fix "**/*.md"
-    # prettier all files
-    yarn prettier . --write --config ./.linters/config/.prettierrc --ignore-path ./.linters/config/.prettierignore
-    # lint yaml. This goes after prettier because it doesn't actually fix anything.
-    yamllint -c ./.linters/config/.yamllint.yml .
+    docker run -v $(pwd):/polylint/app polylint
