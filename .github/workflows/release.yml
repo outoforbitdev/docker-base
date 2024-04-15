@@ -64,7 +64,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Publish Release
-        uses: outoforbitdev/action-semantic-release@v1.4.3-staging.2
+        uses: outoforbitdev/action-semantic-release@v1.6.2
         id: semantic-release
         with:
           github-token: ${{ secrets.RELEASE_TOKEN }}
