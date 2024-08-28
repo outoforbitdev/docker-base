@@ -9,11 +9,39 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    labels:
+      - "type: chore"
+      - "work: obvious"
+      - "effort: 1"
   - package-ecosystem: "docker" # See documentation for possible values
-    directory: "/" # Location of Dockerfile
+    directory: "/ASPNET_6" # Location of Dockerfile
     schedule:
       interval: "weekly"
+    labels:
+      - "type: chore"
+      - "work: obvious"
+      - "effort: 1"
+  - package-ecosystem: "docker" # See documentation for possible values
+    directory: "/DOTNET_SDK_6" # Location of Dockerfile
+    schedule:
+      interval: "weekly"
+    labels:
+      - "type: chore"
+      - "work: obvious"
+      - "effort: 1"
+  - package-ecosystem: "docker" # See documentation for possible values
+    directory: "/NODE" # Location of Dockerfile
+    schedule:
+      interval: "weekly"
+    labels:
+      - "type: chore"
+      - "work: obvious"
+      - "effort: 1"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
+    labels:
+      - "type: chore"
+      - "work: obvious"
+      - "effort: 1"
