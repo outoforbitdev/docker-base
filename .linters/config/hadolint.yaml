@@ -1,0 +1,7 @@
+ignored:
+  - DL3008 # don't lock down apt-get package versions
+  - DL4006
+override:
+  warning:
+    - DL3015
+    - DL3009
