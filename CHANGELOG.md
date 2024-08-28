@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/outoforbitdev/docker-base/compare/v1.0.0...v1.1.0) (2024-08-28)
+
+
+### Features
+
+* multi-platform images ([5dfb381](https://github.com/outoforbitdev/docker-base/commit/5dfb381dc979785e0fe2222c1bd043bc56c374df))
+
 # [1.0.0](https://github.com/outoforbitdev/docker-base/compare/v0.1.0...v1.0.0) (2024-08-26)
 
 
