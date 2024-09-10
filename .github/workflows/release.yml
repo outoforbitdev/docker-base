@@ -15,13 +15,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Test Node 20 Image
-        uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
+        uses: outoforbitdev/action-docker-test@v1.0.0-staging.1
         with:
           test-command: sh ./NODE/node_twenty.sh
           dockerfile-path: ./NODE/
           build-command: docker build --build-arg NODE_MAJOR_VERSION="20"
       - name: Test Node 18 Image
-        uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
+        uses: outoforbitdev/action-docker-test@v1.0.0-staging.1
         with:
           test-command: sh ./NODE/node_eighteen.sh
           dockerfile-path: ./NODE/
@@ -33,7 +33,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Test ASPNET 6 Image
-        uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
+        uses: outoforbitdev/action-docker-test@v1.0.0-staging.1
         with:
           test-command: sh ./ASPNET_6/aspnet_six.sh
           dockerfile-path: ./ASPNET_6/
@@ -44,7 +44,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Test .NET SDK 6 Image
-        uses: outoforbitdev/action-docker-test@v0.0.2-staging.2
+        uses: outoforbitdev/action-docker-test@v1.0.0-staging.1
         with:
           test-command: sh ./DOTNET_SDK_6/dotnet_sdk_six.sh
           dockerfile-path: ./DOTNET_SDK_6/
