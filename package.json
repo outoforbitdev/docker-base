@@ -4,7 +4,7 @@
   "author": "Jay Mirecki <outoforbitdev@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@commitlint/cli": "^19.4.0",
+    "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.4.1",
     "commitlint": "^19.4.1",
     "husky": "^9.1.5"
